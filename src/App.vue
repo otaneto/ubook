@@ -1,32 +1,60 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar app flat color="white">
+      <div class="logo-container">
+        <v-img
+          alt="Ubook Logo"
+          contain
+          src="@/assets/ic-logo.svg"
+          transition="scale-transition"
+          width="148"
+        />
+      </div>
+
+      <div class="search-container">
+        <v-text-field
+          class="mb-0"
+          placeholder="Buscar"
+          append-icon="mdi-magnify"
+          flat
+          solo-inverted
+          hide-details
+        />
+      </div>
+    </v-app-bar>
+
+    <v-main>
+      <v-container class="app-container">
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
+<script>
+export default {
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  .app-container {
+    height: 100%;
   }
-}
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 236px;
+  }
+
+  .search-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
 </style>
