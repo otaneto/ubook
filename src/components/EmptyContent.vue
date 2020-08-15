@@ -10,6 +10,14 @@
       />
     </div>
     <span class="empty-message">Nenhum contato foi criado ainda.</span>
+    <v-btn
+      class="new-contact-button secondary--text"
+      rounded
+      color="primary"
+    >
+      <v-icon>mdi-plus</v-icon>
+      Criar contato
+    </v-btn>
   </div>
 </template>
 
@@ -34,5 +42,9 @@ export default {
   .empty-message {
     margin-top: 24px;
     font-size: 16px;
+  }
+
+  .new-contact-button {
+    margin-top: 24px;
   }
 </style>
