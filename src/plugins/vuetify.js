@@ -9,9 +9,13 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: colors.lightYellowishGreen,
-        secondary: colors.salmon,
+        'light-yellowish-green': colors.lightYellowishGreen,
+        salmon: colors.salmon,
+        'cloudy-blue': colors.cloudyBlue,
       },
+    },
+    options: {
+      customProperties: true,
     },
   },
 });
