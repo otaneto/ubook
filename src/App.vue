@@ -32,12 +32,16 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'App',
-
-  data: () => ({
-    //
-  }),
+  created() {
+    this.LOAD_CONTACTS();
+  },
+  methods: {
+    ...mapMutations(['LOAD_CONTACTS']),
+  },
 };
 </script>
 

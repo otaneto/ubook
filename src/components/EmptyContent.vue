@@ -22,6 +22,7 @@
     <create-contact-modal
       :isVisible="isContentModalVisible"
       @cancel="isContentModalVisible = false"
+      @close="isContentModalVisible = false"
     />
   </div>
 </template>
