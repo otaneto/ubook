@@ -1,5 +1,16 @@
 <template>
   <v-dialog v-model="isVisible" width="432px" persistent>
+    <template v-slot:activator>
+      <v-btn
+        class="new-contact-button salmon--text"
+        rounded
+        color="light-yellowish-green"
+        @click="() => $emit('open')"
+      >
+        <v-icon>mdi-plus</v-icon>
+        Criar contato
+      </v-btn>
+    </template>
     <v-card width="432px">
       <v-card-title>Criar novo contato</v-card-title>
       <v-divider />
