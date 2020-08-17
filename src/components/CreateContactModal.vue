@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid';
 import { mapMutations } from 'vuex';
 
 import telephoneMask from '../utils/masks';
@@ -95,7 +96,7 @@ export default {
       return value === '';
     },
     saveContact() {
-      this.CREATE_CONTACT(this.contact);
+      this.CREATE_CONTACT({ ...this.contact, id: uuidv4() });
       this.$refs.form.reset();
       this.$emit('close');
     },
