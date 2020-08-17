@@ -10,19 +10,11 @@
       />
     </div>
     <span class="empty-message">Nenhum contato foi criado ainda.</span>
-    <v-btn
-      class="new-contact-button salmon--text"
-      rounded
-      color="light-yellowish-green"
-      @click="isContentModalVisible = true"
-    >
-      <v-icon>mdi-plus</v-icon>
-      Criar contato
-    </v-btn>
     <create-contact-modal
-      :isVisible="isContentModalVisible"
-      @cancel="isContentModalVisible = false"
-      @close="isContentModalVisible = false"
+      :isVisible="isContactModalVisible"
+      @open="isContactModalVisible = true"
+      @cancel="isContactModalVisible = false"
+      @close="isContactModalVisible = false"
     />
   </div>
 </template>
@@ -37,7 +29,7 @@ export default {
   },
   data() {
     return {
-      isContentModalVisible: false,
+      isContactModalVisible: false,
     };
   },
 };
@@ -58,9 +50,6 @@ export default {
   .empty-message {
     margin-top: 24px;
     font-size: 16px;
-  }
-
-  .new-contact-button {
-    margin-top: 24px;
+    margin-bottom: 24px;
   }
 </style>
