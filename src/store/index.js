@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     contacts: [],
     selectedContact: {},
+    newContact: {},
   },
   mutations: {
     LOAD_CONTACTS(state) {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     },
     CREATE_CONTACT(state, payload) {
       Object.assign(state, { contacts: [...state.contacts, payload] });
+      Object.assign(state, { newContact: { ...payload } });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
     SELECT_CONTACT(state, payload) {
@@ -24,5 +26,6 @@ export default new Vuex.Store({
   getters: {
     contacts: (state) => state.contacts,
     selectedContact: (state) => state.selectedContact,
+    newContact: (state) => state.newContact,
   },
 });
