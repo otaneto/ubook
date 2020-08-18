@@ -13,6 +13,13 @@
     >
       <template v-slot:item="{ item }">
         <tr :id="item.id">
+          <td>
+            <v-avatar size="24px" color="indigo">
+              <span class="white--text">
+                {{ item.name[0] }}
+              </span>
+            </v-avatar>
+          </td>
           <td>{{ item.name || 'Não informado' }}</td>
           <td>{{ item.email || 'Não informado' }}</td>
           <td>{{ item.telephone || 'Não informado' }}</td>
@@ -58,9 +65,14 @@ export default {
     return {
       headers: [
         {
+          text: '',
+          align: 'start',
+          value: '',
+          sortable: false,
+        },
+        {
           text: 'Contatos',
           align: 'start',
-          sortable: true,
           value: 'name',
         },
         { text: 'E-mail', value: 'email' },
@@ -87,10 +99,10 @@ export default {
         setTimeout(() => {
           document.getElementById(val.id).style.background = colors.veryLightPink;
           this.$vuetify.goTo(`#${val.id}`, { duration: 1000, easing: 'easeInOutCubic' });
-        }, 700);
+        }, 300);
         setTimeout(() => {
           document.getElementById(val.id).style.background = 'white';
-        }, 10700);
+        }, 10300);
       }
     },
   },
