@@ -54,7 +54,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import telephoneMask from '../utils/masks';
 
 export default {
-  name: 'CreateContactModal',
+  name: 'EditContactModal',
   props: {
     isVisible: {
       type: Boolean,
