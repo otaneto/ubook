@@ -25,7 +25,7 @@
           <td>{{ item.telephone || 'Não informado' }}</td>
           <td>
             <div class="d-flex justify-end align-center">
-               <v-btn
+              <v-btn
                 class="mr-3"
                 icon
                 small
@@ -33,7 +33,7 @@
               >
                 <v-img contain src="@/assets/ic-edit.svg" width="16px" height="16px" />
               </v-btn>
-              <v-btn icon small>
+              <v-btn icon small @click="toggleDeleteModal(item)">
                 <v-img src="@/assets/ic-delete.svg" contain width="16" height="16" />
               </v-btn>
             </div>
@@ -47,18 +47,26 @@
       @cancel="isEditModalContactVisible = false"
       @close="isEditModalContactVisible = false"
     />
+    <delete-contact-modal
+      :isVisible="isDeleteContactModalVisible"
+      :selectedContact="item"
+      @cancel="isDeleteContactModalVisible = false"
+      @close="isDeleteContactModalVisible = false"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
+import DeleteContactModal from './DeleteContactModal.vue';
 import EditContactModal from './EditContactModal.vue';
 import colors from '../constants/colors';
 
 export default {
   name: 'ContactsTable',
   components: {
+    DeleteContactModal,
     EditContactModal,
   },
   data() {
@@ -80,6 +88,7 @@ export default {
         { text: '', value: '', align: 'end' },
       ],
       isEditModalContactVisible: false,
+      isDeleteContactModalVisible: false,
     };
   },
   methods: {
@@ -87,6 +96,10 @@ export default {
     toggleEditContactModal(contact) {
       this.SELECT_CONTACT(contact);
       this.isEditModalContactVisible = true;
+    },
+    toggleDeleteModal(contact) {
+      this.SELECT_CONTACT(contact);
+      this.isDeleteContactModalVisible = true;
     },
   },
   computed: {

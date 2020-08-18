@@ -34,6 +34,12 @@ export default new Vuex.Store({
     SELECT_CONTACT(state, payload) {
       Object.assign(state, { selectedContact: { ...payload } });
     },
+    DELETE_CONTACT(state, payload) {
+      const filteredContacts = state.contacts.filter((item) => item.id !== payload.id);
+      const contacts = orderBy(filteredContacts, ['name'], ['asc']);
+      Object.assign(state, { contacts });
+      localStorage.setItem('contacts', JSON.stringify(state.contacts));
+    },
   },
   getters: {
     contacts: (state) => state.contacts,
