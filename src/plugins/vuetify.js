@@ -15,6 +15,7 @@ export default new Vuetify({
         'blue-grey': colors.blueGrey,
         'very-light-pink': colors.veryLightPink,
         'white-two': colors.whiteTwo,
+        'pale-lilac': colors.paleLilac,
       },
     },
     options: {

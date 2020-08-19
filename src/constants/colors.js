@@ -5,4 +5,5 @@ export default {
   veryLightPink: '#fff3f2',
   whiteTwo: '#e1e1e1',
   blueGrey: '#9198af',
+  paleLilac: '#e4e7f4',
 };
