@@ -8,7 +8,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import ContactsTable from '../components/ContactsTable.vue';
+import ContactsTable from '../components/ContactsTable/ContactsTable.vue';
 import EmptyContent from '../components/EmptyContent.vue';
 
 export default {

@@ -12,14 +12,8 @@
       fixed-header
     >
       <template v-slot:item="{ item }">
-        <tr :id="item.id">
-          <td>
-            <v-avatar size="24px" color="indigo">
-              <span class="white--text">
-                {{ item.name[0] }}
-              </span>
-            </v-avatar>
-          </td>
+        <tr :id="item.id" class="contact-row">
+          <td><contact-first-letter :contact="item" /></td>
           <td>{{ item.name || 'Não informado' }}</td>
           <td>{{ item.email || 'Não informado' }}</td>
           <td>{{ item.telephone || 'Não informado' }}</td>
@@ -59,34 +53,23 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
-import DeleteContactModal from './DeleteContactModal.vue';
-import EditContactModal from './EditContactModal.vue';
-import colors from '../constants/colors';
+import ContactFirstLetter from './ContactFirstLetter.vue';
+import DeleteContactModal from '../DeleteContactModal.vue';
+import EditContactModal from '../EditContactModal.vue';
+
+import headers from './contacts-table-headers';
+import colors from '../../constants/colors';
 
 export default {
   name: 'ContactsTable',
   components: {
+    ContactFirstLetter,
     DeleteContactModal,
     EditContactModal,
   },
   data() {
     return {
-      headers: [
-        {
-          text: '',
-          align: 'start',
-          value: '',
-          sortable: false,
-        },
-        {
-          text: 'Contatos',
-          align: 'start',
-          value: 'name',
-        },
-        { text: 'E-mail', value: 'email' },
-        { text: 'Telefone', value: 'telephone' },
-        { text: '', value: '', align: 'end' },
-      ],
+      headers,
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
     };
@@ -112,10 +95,10 @@ export default {
         setTimeout(() => {
           document.getElementById(val.id).style.background = colors.veryLightPink;
           this.$vuetify.goTo(`#${val.id}`, { duration: 1000, easing: 'easeInOutCubic' });
-        }, 300);
+        }, 500);
         setTimeout(() => {
           document.getElementById(val.id).style.background = 'white';
-        }, 10300);
+        }, 10500);
       }
     },
   },
@@ -126,12 +109,12 @@ export default {
   .contacts-table {
     border: 1px solid $white-two;
   }
-  .v-data-table .v-data-table__wrapper table tbody tr {
+  .v-data-table .v-data-table__wrapper table tbody .contact-row {
     cursor: pointer;
-    transition: background .5s ease-in-out;
+    transition: background .2s ease-in-out;
   }
 
-  .v-data-table .v-data-table__wrapper table tbody tr:hover {
+  .v-data-table .v-data-table__wrapper table tbody .contact-row:hover {
     background: $very-light-pink !important;
   }
   .v-data-table-header .text-start {
