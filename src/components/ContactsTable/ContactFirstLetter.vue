@@ -1,5 +1,6 @@
 <template>
-  <v-avatar v-if="showContactFirstLetter" size="24px" :color="generateRandomColor" >
+  <v-avatar
+    v-if="showContactFirstLetter" size="24px" :color="generateRandomColor">
     <span class="white--text text-uppercase">
       {{ contact.name[0] }}
     </span>
