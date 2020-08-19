@@ -10,10 +10,13 @@
       hide-default-footer
       disable-pagination
       fixed-header
+      calculate-widths
     >
       <template v-slot:item="{ item }">
         <tr :id="item.id" class="contact-row">
-          <td><contact-first-letter :contact="item" /></td>
+          <td class="contact-first-letter">
+            <contact-first-letter :contact="item" />
+          </td>
           <td>{{ item.name || 'Não informado' }}</td>
           <td>{{ item.email || 'Não informado' }}</td>
           <td>{{ item.telephone || 'Não informado' }}</td>
@@ -118,5 +121,12 @@ export default {
   .v-data-table-header .text-start {
     color: #9198af;
     font-weight: normal;
+  }
+
+  .contact-first-letter {
+    width: 24px;
+    padding-left: 8px !important;
+    padding-right: 0 !important;
+    margin-right: -16px !important;
   }
 </style>
