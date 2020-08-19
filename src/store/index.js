@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     contacts: [],
+    contactsFound: [],
     newContact: {},
     selectedContact: {},
   },
@@ -15,20 +16,20 @@ export default new Vuex.Store({
       let contacts = JSON.parse(localStorage.getItem('contacts'));
       contacts = orderBy(contacts, ['name'], ['asc']);
       Object.assign(state, { contacts: contacts || [] });
+      Object.assign(state, { contactsFound: contacts || [] });
     },
     CREATE_CONTACT(state, payload) {
       let contacts = [...state.contacts, payload];
       contacts = orderBy(contacts, (['name']), ['asc']);
-      Object.assign(state, { contacts });
-      Object.assign(state, { newContact: { ...payload } });
+      contacts = orderBy(contacts, (['name']), ['asc']);
+      Object.assign(state, { contacts, contactsFound: [...contacts], newContact: { ...payload } });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
     EDIT_CONTACT(state, payload) {
       const filteredContacts = state.contacts.filter((item) => item.id !== payload.id);
       let contacts = [...filteredContacts, { ...payload }];
       contacts = orderBy(contacts, (['name']), ['asc']);
-      Object.assign(state, { contacts });
-      Object.assign(state, { newContact: { ...payload } });
+      Object.assign(state, { contacts, contactsFound: [...contacts], newContact: { ...payload } });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
     SELECT_CONTACT(state, payload) {
@@ -37,12 +38,21 @@ export default new Vuex.Store({
     DELETE_CONTACT(state, payload) {
       const filteredContacts = state.contacts.filter((item) => item.id !== payload.id);
       const contacts = orderBy(filteredContacts, (['name']), ['asc']);
-      Object.assign(state, { contacts });
+      Object.assign(state, { contacts, contactsFound: [...contacts] });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
+    },
+    FILTER_CONTACTS(state, payload) {
+      const { contacts } = state;
+      const filteredContacts = contacts.filter((item) => {
+        const lowerCaseName = item.name.toLowerCase();
+        return lowerCaseName.indexOf(payload) !== -1;
+      });
+      Object.assign(state, { contactsFound: [...filteredContacts] });
     },
   },
   getters: {
     contacts: (state) => state.contacts,
+    contactsFound: (state) => state.contactsFound,
     newContact: (state) => state.newContact,
     selectedContact: (state) => state.selectedContact,
   },

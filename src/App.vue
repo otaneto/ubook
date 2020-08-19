@@ -26,12 +26,16 @@
 
       <div class="search-container">
         <v-text-field
+          v-model="query"
           class="mb-0"
-          placeholder="Buscar"
+          placeholder="Buscar..."
           append-icon="mdi-magnify"
           flat
-          solo-inverted
+          solo
           hide-details
+          dense
+          background-color="pale-lilac"
+          @keypress="searchContact"
         />
       </div>
     </v-app-bar>
@@ -56,6 +60,7 @@ export default {
   },
   data() {
     return {
+      query: '',
       isContactModalVisible: false,
     };
   },
@@ -63,10 +68,18 @@ export default {
     this.LOAD_CONTACTS();
   },
   methods: {
-    ...mapMutations(['LOAD_CONTACTS']),
+    ...mapMutations(['LOAD_CONTACTS', 'FILTER_CONTACTS']),
+    searchContact(query) {
+      this.FILTER_CONTACTS(query);
+    },
   },
   computed: {
     ...mapGetters(['contacts']),
+  },
+  watch: {
+    query(val) {
+      this.searchContact(val);
+    },
   },
 };
 </script>
@@ -74,6 +87,7 @@ export default {
 <style lang="scss">
   .app-container {
     height: 100%;
+    width: 100%;
   }
 
   .logo-container {
@@ -89,6 +103,7 @@ export default {
     display: flex;
     flex: 1;
     align-items: center;
+    height: 32px;
   }
 
   .create-contact-container {

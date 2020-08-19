@@ -2,10 +2,10 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="contacts"
+      :items="contactsFound"
       :items-per-page="5"
       class="elevation-0 contacts-table"
-      no-data-text="Nenhum contato foi criado ainda."
+      no-data-text="Nenhum contato foi encontrado."
       dense
       hide-default-footer
       disable-pagination
@@ -87,7 +87,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['contacts', 'newContact']),
+    ...mapGetters(['contactsFound', 'newContact']),
   },
   watch: {
     newContact(val) {
