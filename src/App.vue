@@ -41,7 +41,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container class="app-container">
+      <v-container fluid class="app-container px-4">
         <router-view />
       </v-container>
     </v-main>
