@@ -11,11 +11,11 @@
         >
           <label>
             Nome
-            <v-text-field v-model="contact.name" outlined dense />
+            <v-text-field v-model.trim="contact.name" outlined dense />
           </label>
           <label>
             E-mail
-            <v-text-field v-model="contact.email" outlined dense />
+            <v-text-field v-model.trim="contact.email" outlined dense />
           </label>
           <label>
             Telefone
@@ -51,6 +51,7 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 
+import capitalize from '../utils/functions';
 import telephoneMask from '../utils/masks';
 
 export default {
@@ -81,7 +82,10 @@ export default {
       return value === '';
     },
     editContact() {
-      this.EDIT_CONTACT(this.contact);
+      this.EDIT_CONTACT({
+        ...this.contact,
+        name: capitalize(this.contact.name),
+      });
       this.$emit('close');
     },
   },

@@ -24,11 +24,11 @@
         >
           <label>
             Nome
-            <v-text-field v-model="contact.name" outlined dense />
+            <v-text-field v-model.trim="contact.name" outlined dense />
           </label>
           <label>
             E-mail
-            <v-text-field v-model="contact.email" outlined dense />
+            <v-text-field v-model.trim="contact.email" outlined dense />
           </label>
           <label>
             Telefone
@@ -65,6 +65,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { mapMutations } from 'vuex';
 
+import capitalize from '../utils/functions';
 import telephoneMask from '../utils/masks';
 
 export default {
@@ -96,7 +97,11 @@ export default {
       return value === '';
     },
     saveContact() {
-      this.CREATE_CONTACT({ ...this.contact, id: uuidv4() });
+      this.CREATE_CONTACT({
+        ...this.contact,
+        id: uuidv4(),
+        name: capitalize(this.contact.name),
+      });
       this.$refs.form.reset();
       this.$emit('close');
     },
