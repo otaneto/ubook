@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     CREATE_CONTACT(state, payload) {
       let contacts = [...state.contacts, payload];
-      contacts = orderBy(contacts, ['name'], ['asc']);
+      contacts = orderBy(contacts, (['name']), ['asc']);
       Object.assign(state, { contacts });
       Object.assign(state, { newContact: { ...payload } });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
@@ -26,7 +26,7 @@ export default new Vuex.Store({
     EDIT_CONTACT(state, payload) {
       const filteredContacts = state.contacts.filter((item) => item.id !== payload.id);
       let contacts = [...filteredContacts, { ...payload }];
-      contacts = orderBy(contacts, ['name'], ['asc']);
+      contacts = orderBy(contacts, (['name']), ['asc']);
       Object.assign(state, { contacts });
       Object.assign(state, { newContact: { ...payload } });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
     DELETE_CONTACT(state, payload) {
       const filteredContacts = state.contacts.filter((item) => item.id !== payload.id);
-      const contacts = orderBy(filteredContacts, ['name'], ['asc']);
+      const contacts = orderBy(filteredContacts, (['name']), ['asc']);
       Object.assign(state, { contacts });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
