@@ -37,13 +37,11 @@
     </v-data-table>
     <edit-contact-modal
       :isVisible="isEditModalContactVisible"
-      :selectedContact="item"
       @cancel="isEditModalContactVisible = false"
       @close="isEditModalContactVisible = false"
     />
     <delete-contact-modal
       :isVisible="isDeleteContactModalVisible"
-      :selectedContact="item"
       @cancel="isDeleteContactModalVisible = false"
       @close="isDeleteContactModalVisible = false"
     />
