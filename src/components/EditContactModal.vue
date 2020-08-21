@@ -11,16 +11,22 @@
         >
           <label>
             Nome
-            <v-text-field v-model.trim="contact.name" outlined dense />
+            <v-text-field v-model.trim="contact.name" outlined dense name="Nome" />
           </label>
           <label>
             E-mail
-            <v-text-field v-model.trim="contact.email" outlined dense />
+            <v-text-field v-model.trim="contact.email" outlined dense name="E-mail" />
           </label>
           <label>
             Telefone
             <div class="telephone-field">
-              <v-text-field v-model="contact.telephone" outlined dense v-mask="telephoneMask" />
+              <v-text-field
+                v-model="contact.telephone"
+                outlined
+                dense
+                v-mask="telephoneMask"
+                name="Telefone"
+              />
             </div>
           </label>
         </v-form>
