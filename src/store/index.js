@@ -44,8 +44,12 @@ export default new Vuex.Store({
     FILTER_CONTACTS(state, payload) {
       const { contacts } = state;
       const filteredContacts = contacts.filter((item) => {
-        const lowerCaseName = item.name.toLowerCase();
-        return lowerCaseName.indexOf(payload) !== -1;
+        const { name, email, telephone } = item;
+        const lowerCaseNameExists = name?.toLowerCase().indexOf(payload) !== -1;
+        const lowerCaseEmailExists = email?.toLowerCase().indexOf(payload) !== -1;
+        const telephoneExists = telephone?.indexOf(payload) !== -1;
+
+        return lowerCaseNameExists || lowerCaseEmailExists || telephoneExists;
       });
       Object.assign(state, { contactsFound: [...filteredContacts] });
     },
