@@ -46,6 +46,9 @@
       @cancel="isDeleteContactModalVisible = false"
       @close="isDeleteContactModalVisible = false"
     />
+    <div v-if="!contactsFound.length" class="text-center">
+      Nenhum contato foi encontrado.
+    </div>
   </div>
 </template>
 
