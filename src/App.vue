@@ -1,9 +1,17 @@
 <template>
   <v-app>
-    <v-app-bar app flat color="white">
+    <v-app-bar
+      :class="{'d-flex justify-center': $vuetify.breakpoint.xs}"
+      app
+      flat
+      color="white"
+    >
       <div
         class="logo-container"
-        :class="{'logo-empty-list': !contacts.length}"
+        :class="{
+          'logo-empty-list': !contacts.length,
+          'd-flex justify-center': $vuetify.breakpoint.xs,
+        }"
       >
         <v-img
           alt="Ubook Logo"
@@ -14,9 +22,11 @@
         />
       </div>
 
-      <div class="create-contact-container">
+      <div
+        class="create-contact-container"
+        v-if="contacts.length && $vuetify.breakpoint.smAndUp"
+      >
         <create-contact-modal
-          v-if="contacts.length"
           :isVisible="isContactModalVisible"
           @open="isContactModalVisible = true"
           @cancel="isContactModalVisible = false"
@@ -24,24 +34,15 @@
         />
       </div>
 
-      <div class="search-container">
-        <v-text-field
-          v-model="query"
-          class="mb-0"
-          placeholder="Buscar..."
-          append-icon="mdi-magnify"
-          flat
-          solo
-          hide-details
-          dense
-          background-color="pale-lilac"
-          @keypress="searchContact"
-        />
-      </div>
+      <search-bar v-if="$vuetify.breakpoint.smAndUp"/>
     </v-app-bar>
 
     <v-main>
-      <v-container fluid class="app-container px-4">
+      <v-container
+        fluid
+        class="app-container px-4"
+        :class="{'pt-0': $vuetify.breakpoint.xs}"
+      >
         <router-view />
       </v-container>
     </v-main>
@@ -49,18 +50,19 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
+import SearchBar from './components/SearchBar.vue';
 import CreateContactModal from './components/CreateContactModal.vue';
 
 export default {
   name: 'App',
   components: {
     CreateContactModal,
+    SearchBar,
   },
   data() {
     return {
-      query: '',
       isContactModalVisible: false,
     };
   },
@@ -68,18 +70,10 @@ export default {
     this.LOAD_CONTACTS();
   },
   methods: {
-    ...mapMutations(['LOAD_CONTACTS', 'FILTER_CONTACTS']),
-    searchContact(query) {
-      this.FILTER_CONTACTS(query);
-    },
+    ...mapMutations(['LOAD_CONTACTS']),
   },
   computed: {
     ...mapGetters(['contacts']),
-  },
-  watch: {
-    query(val) {
-      this.searchContact(val);
-    },
   },
 };
 </script>

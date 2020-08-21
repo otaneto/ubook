@@ -6,9 +6,15 @@
         rounded
         color="light-yellowish-green"
         @click="() => $emit('open')"
+        :fab="$vuetify.breakpoint.xs"
+        :bottom="$vuetify.breakpoint.xs"
+        :fixed="$vuetify.breakpoint.xs"
+        :right="$vuetify.breakpoint.xs"
       >
         <v-icon>mdi-plus</v-icon>
-        Criar contato
+        <span v-if="$vuetify.breakpoint.smAndUp">
+          Criar contato
+        </span>
       </v-btn>
     </template>
     <v-card width="432px">

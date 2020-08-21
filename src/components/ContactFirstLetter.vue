@@ -1,6 +1,9 @@
 <template>
   <v-avatar
-    v-if="showContactFirstLetter" size="24px" :color="generateRandomColor">
+    v-if="showContactFirstLetter"
+    :size="size"
+    :color="generateRandomColor"
+  >
     <span class="white--text text-uppercase">
       {{ contact.name[0] }}
     </span>
@@ -20,12 +23,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['contacts']),
+    ...mapGetters(['contactsFound']),
     showContactFirstLetter() {
-      const contactIdx = this.contacts.findIndex((item) => item.id === this.contact.id);
-      if (!this.contacts[contactIdx].name) return false;
-      const contactFirstLetter = this.contacts[contactIdx].name[0];
-      const previousContactFirstLetter = (contactIdx > 0) && this.contacts[contactIdx - 1].name[0];
+      const contacts = this.contactsFound;
+      const contactIdx = contacts.findIndex((item) => item.id === this.contact.id);
+
+      if (!contacts[contactIdx].name) return false;
+      const contactFirstLetter = contacts[contactIdx].name[0];
+      const previousContactFirstLetter = (contactIdx > 0) && contacts[contactIdx - 1].name[0];
       if (!previousContactFirstLetter) return true;
       return contactFirstLetter !== '' && contactFirstLetter.toLowerCase()
         !== previousContactFirstLetter.toLowerCase();
@@ -54,6 +59,11 @@ export default {
       const randomColorVariation = colorVariations[colorVariationPosition];
 
       return colors[randomColor][randomColorVariation];
+    },
+    size() {
+      if (this.$vuetify.breakpoint.xs) return '32px';
+
+      return '24px';
     },
   },
 };

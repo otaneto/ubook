@@ -1,43 +1,41 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="contactsFound"
-      :items-per-page="5"
-      class="elevation-0 contacts-table"
-      no-data-text="Nenhum contato foi encontrado."
-      dense
-      hide-default-footer
-      disable-pagination
-      fixed-header
-      calculate-widths
-    >
-      <template v-slot:item="{ item }">
-        <tr :id="item.id" class="contact-row">
-          <td class="contact-first-letter">
-            <contact-first-letter :contact="item" />
-          </td>
-          <td>{{ item.name || 'Não informado' }}</td>
-          <td>{{ item.email || 'Não informado' }}</td>
-          <td>{{ item.telephone || 'Não informado' }}</td>
-          <td>
-            <div class="d-flex justify-end align-center">
+    <template v-for="contact in contactsFound">
+      <div :key="contact.id" class="d-flex flex-column align-center">
+        <contact-first-letter class="my-4" :contact="contact" />
+        <v-card class="mb-3" width="300px" outlined>
+          <v-card-title>{{ contact.name || 'Sem nome' }}</v-card-title>
+          <v-card-text>
+            <div class="d-flex flex-column">
+              <div>
+                <v-icon class="mr-3" color="blue-grey" size="16px">mdi-at</v-icon>
+                <span><strong>E-mail:</strong> {{ contact.email || 'Não informado'}}</span>
+              </div>
+              <div>
+                <v-icon class="mr-3" color="blue-grey" size="16px">mdi-phone</v-icon>
+                <span><strong>Telefone:</strong> {{ contact.telephone || 'Não informado' }}</span>
+              </div>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <div class="d-flex justify-end">
               <v-btn
                 class="mr-3"
                 icon
                 small
-                @click="toggleEditContactModal(item)"
+                @click="toggleEditContactModal(contact)"
               >
                 <v-img contain src="@/assets/ic-edit.svg" width="16px" height="16px" />
               </v-btn>
-              <v-btn icon small @click="toggleDeleteModal(item)">
+              <v-btn icon small @click="toggleDeleteModal(contact)">
                 <v-img src="@/assets/ic-delete.svg" contain width="16" height="16" />
               </v-btn>
             </div>
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
+          </v-card-actions>
+        </v-card>
+      </div>
+    </template>
     <edit-contact-modal
       :isVisible="isEditModalContactVisible"
       @cancel="isEditModalContactVisible = false"
@@ -58,11 +56,10 @@ import ContactFirstLetter from '../ContactFirstLetter.vue';
 import DeleteContactModal from '../DeleteContactModal.vue';
 import EditContactModal from '../EditContactModal.vue';
 
-import headers from './contacts-table-headers';
 import colors from '../../constants/colors';
 
 export default {
-  name: 'ContactsTable',
+  name: 'ContactsCards',
   components: {
     ContactFirstLetter,
     DeleteContactModal,
@@ -70,7 +67,6 @@ export default {
   },
   data() {
     return {
-      headers,
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
     };
