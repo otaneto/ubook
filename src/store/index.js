@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     contacts: [],
     contactsFound: [],
-    newContact: {},
+    newContact: () => ({}),
     selectedContact: {},
   },
   mutations: {

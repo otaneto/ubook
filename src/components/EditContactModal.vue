@@ -57,7 +57,7 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 
-import capitalize from '../utils/functions';
+import { capitalize, getContactColor } from '../utils/functions';
 import telephoneMask from '../utils/masks';
 
 export default {
@@ -91,12 +91,13 @@ export default {
       this.EDIT_CONTACT({
         ...this.contact,
         name: capitalize(this.contact.name),
+        color: getContactColor(this.contacts, this.contact),
       });
       this.$emit('close');
     },
   },
   computed: {
-    ...mapGetters(['selectedContact']),
+    ...mapGetters(['selectedContact', 'contacts']),
     isFormFilled() {
       const contactFormValues = Object.values(this.contact);
       if (contactFormValues.every((this.isEmptyString))) {

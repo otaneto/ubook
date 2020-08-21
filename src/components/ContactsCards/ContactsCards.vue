@@ -67,6 +67,7 @@ export default {
   },
   data() {
     return {
+      randomColors: [],
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
     };

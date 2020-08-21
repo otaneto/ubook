@@ -12,10 +12,10 @@
       fixed-header
       calculate-widths
     >
-      <template v-slot:item="{ item }">
-        <tr :id="item.id" class="contact-row">
+      <template v-slot:item="{ item, index }">
+        <tr :key="item.id" :id="item.id" class="contact-row">
           <td class="contact-first-letter">
-            <contact-first-letter :contact="item" />
+            <contact-first-letter :contact="item" :color="randomColors[index]" />
           </td>
           <td>{{ item.name || 'Não informado' }}</td>
           <td>{{ item.email || 'Não informado' }}</td>
@@ -60,6 +60,7 @@ import EditContactModal from '../EditContactModal.vue';
 
 import headers from './contacts-table-headers';
 import colors from '../../constants/colors';
+import { generateRadomColor } from '../../utils/functions';
 
 export default {
   name: 'ContactsTable',
@@ -68,8 +69,14 @@ export default {
     DeleteContactModal,
     EditContactModal,
   },
+  created() {
+    for (let index = 0; index < 300; index += 1) {
+      this.randomColors = [...this.randomColors, generateRadomColor()];
+    }
+  },
   data() {
     return {
+      randomColors: [],
       headers,
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
@@ -91,6 +98,7 @@ export default {
   },
   watch: {
     newContact(val) {
+      console.log(val);
       if (val.id) {
         setTimeout(() => {
           document.getElementById(val.id).style.background = colors.veryLightPink;

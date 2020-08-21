@@ -1,15 +1,17 @@
 <template>
   <v-dialog v-model="isVisible" width="432px" persistent>
-    <template v-slot:activator>
+    <template v-slot:activator="{ on, attrs }">
       <v-btn
         class="new-contact-button salmon--text"
         rounded
         color="light-yellowish-green"
-        @click="() => $emit('open')"
         :fab="$vuetify.breakpoint.xs"
         :bottom="$vuetify.breakpoint.xs"
         :fixed="$vuetify.breakpoint.xs"
         :right="$vuetify.breakpoint.xs"
+        @click.stop="() => $emit('open')"
+        v-on="on"
+        v-bind="attrs"
       >
         <v-icon>mdi-plus</v-icon>
         <span v-if="$vuetify.breakpoint.smAndUp">
@@ -75,9 +77,9 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
-import capitalize from '../utils/functions';
+import { capitalize, getContactColor } from '../utils/functions';
 import telephoneMask from '../utils/masks';
 
 export default {
@@ -113,6 +115,7 @@ export default {
         ...this.contact,
         id: uuidv4(),
         name: capitalize(this.contact.name),
+        color: getContactColor(this.contacts, this.contact),
       });
       this.$refs.form.reset();
       this.$emit('close');
@@ -126,6 +129,7 @@ export default {
       }
       return true;
     },
+    ...mapGetters(['contacts']),
   },
 };
 </script>
