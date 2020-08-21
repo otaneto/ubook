@@ -53,6 +53,9 @@ export default new Vuex.Store({
       });
       Object.assign(state, { contactsFound: [...filteredContacts] });
     },
+    CLEAR_NEW_CONTACT(state) {
+      Object.assign(state, { newContact: {} });
+    },
   },
   getters: {
     contacts: (state) => state.contacts,

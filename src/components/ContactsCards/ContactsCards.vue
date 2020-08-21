@@ -77,7 +77,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['SELECT_CONTACT']),
+    ...mapMutations(['SELECT_CONTACT', 'CLEAR_NEW_CONTACT']),
     toggleEditContactModal(contact) {
       this.SELECT_CONTACT(contact);
       this.isEditModalContactVisible = true;
@@ -105,6 +105,9 @@ export default {
     newContact(val) {
       this.highlightNewContact(val);
     },
+  },
+  beforeDestroy() {
+    this.CLEAR_NEW_CONTACT();
   },
 };
 </script>
