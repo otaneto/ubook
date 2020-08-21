@@ -3,7 +3,7 @@
     <template v-for="contact in contactsFound">
       <div :key="contact.id" class="d-flex flex-column align-center">
         <contact-first-letter class="my-4" :contact="contact" />
-        <v-card class="mb-3" width="300px" outlined>
+        <v-card :id="contact.id" class="mb-3" width="300px" outlined>
           <v-card-title>{{ contact.name || 'Sem nome' }}</v-card-title>
           <v-card-text>
             <div class="d-flex flex-column">
@@ -65,9 +65,13 @@ export default {
     DeleteContactModal,
     EditContactModal,
   },
+  created() {
+    if (Object.keys(this.newContact).length > 0) {
+      this.highlightNewContact(this.newContact);
+    }
+  },
   data() {
     return {
-      randomColors: [],
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
     };
@@ -82,21 +86,24 @@ export default {
       this.SELECT_CONTACT(contact);
       this.isDeleteContactModalVisible = true;
     },
+    highlightNewContact(contact) {
+      if (contact.id) {
+        setTimeout(() => {
+          document.getElementById(contact.id).style.background = colors.veryLightPink;
+          this.$vuetify.goTo(`#${contact.id}`, { duration: 1000, easing: 'easeInOutCubic' });
+        }, 500);
+        setTimeout(() => {
+          document.getElementById(contact.id).style.background = 'white';
+        }, 10500);
+      }
+    },
   },
   computed: {
     ...mapGetters(['contactsFound', 'newContact']),
   },
   watch: {
     newContact(val) {
-      if (val.id) {
-        setTimeout(() => {
-          document.getElementById(val.id).style.background = colors.veryLightPink;
-          this.$vuetify.goTo(`#${val.id}`, { duration: 1000, easing: 'easeInOutCubic' });
-        }, 500);
-        setTimeout(() => {
-          document.getElementById(val.id).style.background = 'white';
-        }, 10500);
-      }
+      this.highlightNewContact(val);
     },
   },
 };

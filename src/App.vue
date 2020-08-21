@@ -9,7 +9,7 @@
       <div
         class="logo-container"
         :class="{
-          'logo-empty-list': !contacts.length,
+          'logo-empty-list': !contacts.length && $vuetify.breakpoint.smAndUp,
           'd-flex justify-center': $vuetify.breakpoint.xs,
         }"
       >

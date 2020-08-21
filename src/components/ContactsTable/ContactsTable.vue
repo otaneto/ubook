@@ -12,10 +12,10 @@
       fixed-header
       calculate-widths
     >
-      <template v-slot:item="{ item, index }">
+      <template v-slot:item="{ item }">
         <tr :key="item.id" :id="item.id" class="contact-row">
           <td class="contact-first-letter">
-            <contact-first-letter :contact="item" :color="randomColors[index]" />
+            <contact-first-letter :contact="item" />
           </td>
           <td>{{ item.name || 'Não informado' }}</td>
           <td>{{ item.email || 'Não informado' }}</td>
@@ -60,7 +60,6 @@ import EditContactModal from '../EditContactModal.vue';
 
 import headers from './contacts-table-headers';
 import colors from '../../constants/colors';
-import { generateRadomColor } from '../../utils/functions';
 
 export default {
   name: 'ContactsTable',
@@ -70,13 +69,12 @@ export default {
     EditContactModal,
   },
   created() {
-    for (let index = 0; index < 300; index += 1) {
-      this.randomColors = [...this.randomColors, generateRadomColor()];
+    if (Object.keys(this.newContact).length > 0) {
+      this.highlightNewContact(this.newContact);
     }
   },
   data() {
     return {
-      randomColors: [],
       headers,
       isEditModalContactVisible: false,
       isDeleteContactModalVisible: false,
@@ -92,22 +90,24 @@ export default {
       this.SELECT_CONTACT(contact);
       this.isDeleteContactModalVisible = true;
     },
+    highlightNewContact(contact) {
+      if (contact.id) {
+        setTimeout(() => {
+          document.getElementById(contact.id).style.background = colors.veryLightPink;
+          this.$vuetify.goTo(`#${contact.id}`, { duration: 1000, easing: 'easeInOutCubic' });
+        }, 500);
+        setTimeout(() => {
+          document.getElementById(contact.id).style.background = 'white';
+        }, 10500);
+      }
+    },
   },
   computed: {
     ...mapGetters(['contactsFound', 'newContact']),
   },
   watch: {
     newContact(val) {
-      console.log(val);
-      if (val.id) {
-        setTimeout(() => {
-          document.getElementById(val.id).style.background = colors.veryLightPink;
-          this.$vuetify.goTo(`#${val.id}`, { duration: 1000, easing: 'easeInOutCubic' });
-        }, 500);
-        setTimeout(() => {
-          document.getElementById(val.id).style.background = 'white';
-        }, 10500);
-      }
+      this.highlightNewContact(val);
     },
   },
 };
