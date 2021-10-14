@@ -1,8 +1,5 @@
 # ubook
 
-## Live Demo
-[https://ubook-otaneto.netlify.app](https://ubook-otaneto.netlify.app/)
-
 ## Project setup
 ```
 npm install
